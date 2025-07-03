@@ -205,6 +205,7 @@
             </p>
             <!-- ضع الزر هكذا داخل priceDisplay -->
             <button id="copyPriceBtn" class="copy-btn" style="margin-top:15px; display:none;">نسخ السعر</button>
+            <div id="copyMsg" style="display:none; color:#27ae60; font-weight:bold; margin-top:10px; font-size:1.1em;"></div>
         </div>
         
         <div class="footer">
@@ -969,17 +970,22 @@
 
         // زر نسخ السعر
         document.addEventListener('DOMContentLoaded', function() {
-            const copyBtn = document.getElementById('copyPriceBtn');
-            if (copyBtn) {
-                copyBtn.addEventListener('click', function() {
-                    const priceValue = document.getElementById('priceValue').textContent;
-                    const numberOnly = priceValue.replace(/[^0-9]/g, '');
-                    navigator.clipboard.writeText(numberOnly).then(() => {
-        alert('تم نسخ السعر: ' + numberOnly);
-    });
-                });
-            }
+    const copyBtn = document.getElementById('copyPriceBtn');
+    const copyMsg = document.getElementById('copyMsg');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            const priceValue = document.getElementById('priceValue').textContent;
+            const numberOnly = priceValue.replace(/[^0-9]/g, '');
+            navigator.clipboard.writeText(numberOnly).then(() => {
+                copyMsg.textContent = 'تم نسخ السعر!';
+                copyMsg.style.display = 'block';
+                setTimeout(() => {
+                    copyMsg.style.display = 'none';
+                }, 2000);
+            });
         });
+    }
+});
     </script>
 </body>
 </html>
